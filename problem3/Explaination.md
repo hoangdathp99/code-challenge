@@ -29,11 +29,11 @@ balances.filter((balance: WalletBalance) => {
 });
 ```
 
-- lhsPriority is undefined (bug).
+- `lhsPriority` is `undefined` (bug).
 
 - Keeps balances with amount <= 0 (likely unintended).
 
-- Fix: Keep only balances with valid priority and amount > 0.
+- **Fix:** Keep only balances with valid priority and amount > 0.
 
 ### 3. Sorting Comparator Missing Equality
 
@@ -47,8 +47,8 @@ if (leftPriority > rightPriority) {
 }
 ```
 
-- Missing return 0 for equal priorities → unstable sort.
-- Fix: Use return rightPriority - leftPriority;
+- Missing return 0 for equal `priorities` → unstable sort.
+- **Fix:** Use return rightPriority - leftPriority;
 
 ### 4. Unnecessary Dependencies in useMemo
 
@@ -76,9 +76,9 @@ const sortedBalances = useMemo(() => {
 }, [balances, prices]);
 ```
 
-- useMemo depends on [balances, prices], but prices is not used.
+- `useMemo` depends on `[balances, prices]`, but `prices` is not used.
 - Causes wasted recalculations when prices change.
-- Fix: Remove prices from dependency array
+- **Fix:** Remove prices from dependency array
 
 ### 5. Rendering Rows Without Memoization
 
@@ -87,7 +87,7 @@ const sortedBalances = useMemo(() => {
 ```
 
 - Recomputed on every render.
-- Fix: Wrap in useMemo
+- **Fix:** Wrap in useMemo
 
 ### 6. Using Index as Key
 
@@ -109,7 +109,7 @@ const rows = sortedBalances.map(
 ```
 
 - Anti-pattern in React. Causes reconciliation issues
-- Fix: Use stable identifiers (e.g., balance.currency).
+- **Fix:** Use stable identifiers (e.g., balance.currency).
 
 ### 7. Improper Number Formatting
 
@@ -117,4 +117,4 @@ const rows = sortedBalances.map(
 formatted: balance.amount.toFixed();
 ```
 - Defaults to 0 decimals
-- Fix: Explicitly format (toFixed(2) for money).
+- **Fix:** Explicitly format (toFixed(2) for money).
