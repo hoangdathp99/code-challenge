@@ -35,6 +35,8 @@ balances.filter((balance: WalletBalance) => {
 
 - **Fix:** Keep only balances with valid priority and amount > 0.
 
+---
+
 ### 3. Sorting Comparator Missing Equality
 
 ```ts
@@ -49,6 +51,8 @@ if (leftPriority > rightPriority) {
 
 - Missing return 0 for equal `priorities` → unstable sort.
 - **Fix:** Use return rightPriority - leftPriority;
+
+---
 
 ### 4. Unnecessary Dependencies in useMemo
 
@@ -80,6 +84,8 @@ const sortedBalances = useMemo(() => {
 - Causes wasted recalculations when prices change.
 - **Fix:** Remove prices from dependency array
 
+---
+
 ### 5. Rendering Rows Without Memoization
 
 ```ts
@@ -88,6 +94,8 @@ const sortedBalances = useMemo(() => {
 
 - Recomputed on every render.
 - **Fix:** Wrap in useMemo
+
+---
 
 ### 6. Using Index as Key
 
@@ -110,6 +118,8 @@ const rows = sortedBalances.map(
 
 - Anti-pattern in React. Causes reconciliation issues
 - **Fix:** Use stable identifiers (e.g., balance.currency).
+
+---
 
 ### 7. Improper Number Formatting
 
